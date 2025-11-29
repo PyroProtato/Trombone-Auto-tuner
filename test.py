@@ -1,11 +1,3 @@
-import serial
-import time
-
-import sys
-import aubio
-from scipy.fftpack import fft, fftfreq
-
-
 import sounddevice as sd
 import numpy as np
 import aubio
@@ -140,6 +132,7 @@ p.set_tolerance(0.75)
 p.set_silence(-45) # Set a lower threshold for brass instruments to prevent noise
 
 
+
 def aubio_audio_callback(indata, frames, time, status):
     global average
     global total
@@ -170,7 +163,7 @@ def aubio_audio_callback(indata, frames, time, status):
 
         total += pitch_hz
         bigsamples.append(pitch_hz)
-        
+        eliminate_outliers_percentile(bigsamples, 5, 95)
         
         if len(bigsamples) > SAMPLES_SIZE:
             total -= bigsamples[0]
@@ -182,16 +175,10 @@ def aubio_audio_callback(indata, frames, time, status):
         action = ""
         if average < target:
             action = "flat"
-            ser.write(b'in\n')
         else:
             action = "sharp"
-            ser.write(b'out\n')
 
         print(f"{pitch(average)} {action} {average-target}")
-
-    else: 
-        
-        ser.write(b"stop\n")
 
 
 
@@ -210,7 +197,7 @@ def eliminate_outliers_percentile(data_list, lower_p=5, upper_p=95):
     
     # Filter the data to keep only values within the bounds
     cleaned_list = data_arr[(data_arr >= lower_bound) & (data_arr <= upper_bound)].tolist()
-    return cleaned_list
+    return cleaned_list, lower_bound, upper_bound
 
 
 
@@ -232,42 +219,7 @@ def pitch(freq):
     
     # Return the note name and octave as a combined string
     return name[n] + str(octave)
-
-
-
-
-try:
-    ser = serial.Serial(
-        port='COM6',        # Replace with your port
-        baudrate=9600,
-        bytesize=8,
-        parity='N',
-        stopbits=1,
-        timeout=1
-    )
-    print(f"Connected to {ser.name}") 
-    time.sleep(2)
     
-
-except serial.SerialException as e:
-    print(f"Error: {e}")
-
-
-
-
-ser.write(b'out\n')
-
-time.sleep(2)
-
-ser.write(b"in\n")
-
-time.sleep(2)
-
-ser.write(b'out\n')
-
-time.sleep(2)
-
-ser.write(b"stop\n")
 
 
 print("Starting Aubio YIN pitch stream... Press Ctrl+C to stop.")
@@ -284,3 +236,40 @@ except Exception as e:
 
 
 
+
+"""
+holdover = 0
+#Gets the average of the last 3 samples
+smalltotal += pitch_hz
+smallsamples.append(pitch_hz)
+if len(smallsamples) > SMALL_SAMPLES_SIZE:
+    smalltotal -= smallsamples[0]
+    holdover = smallsamples[0]
+    del smallsamples[0]
+#Deletes outliers
+if len(smallsamples) == SMALL_SAMPLES_SIZE and abs(smallsamples[1]-smallsamples[0]) > smallsamples[0] * 0.05 and abs(smallsamples[1]-smallsamples[2]) > smallsamples[2] * 0.05:
+    smalltotal -= smallsamples[1]
+    del smallsamples[1]
+smallavg = smalltotal/len(smallsamples)
+
+if abs(average-smallavg) > average*0.1:
+    #Resets samples if detects a note change
+    print("Note Change!")
+    bigsamples = []
+    total = 0
+    bigsamples.append(holdover)
+    total += holdover
+else:
+    #Gets the average of the last 10 samples minus the last 3
+    total += holdover
+    bigsamples.append(holdover)
+    
+    if len(bigsamples) > SAMPLES_SIZE:
+        total -= bigsamples[0]
+        del bigsamples[0]
+
+average = total/len(bigsamples)
+
+
+#print(f"{average} {smallavg} {abs(average-smallavg)}")
+"""
