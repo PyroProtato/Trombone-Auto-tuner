@@ -14,7 +14,7 @@ import sys
 
 # --- Configuration ---
 FS = 44100         # Sample rate in Hz
-CHANNELS = 1       # Mono input
+CHANNELS = 2       # Mono input
 BLOCKSIZE = 1024   
 HOP_SIZE = 512     
 
@@ -254,6 +254,7 @@ except serial.SerialException as e:
 
 
 
+time.sleep(2)
 
 ser.write(b'out\n')
 
@@ -261,15 +262,11 @@ time.sleep(2)
 
 ser.write(b"in\n")
 
-time.sleep(2)
-
-ser.write(b'out\n')
-
-time.sleep(2)
+time.sleep(20)
 
 ser.write(b"stop\n")
 
-
+"""
 print("Starting Aubio YIN pitch stream... Press Ctrl+C to stop.")
 try:
     with sd.InputStream(samplerate=FS, blocksize=HOP_SIZE, channels=CHANNELS, callback=aubio_audio_callback):
@@ -280,7 +277,7 @@ except KeyboardInterrupt:
 except Exception as e:
     print(f"An error occurred: {e}")
 
-
+"""
 
 
 
