@@ -262,7 +262,7 @@ time.sleep(2)
 
 ser.write(b"in\n")
 
-time.sleep(20)
+time.sleep(3)
 
 ser.write(b"stop\n")
 
