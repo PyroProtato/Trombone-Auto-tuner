@@ -9,8 +9,9 @@ I made this project because I want to get better at the hardware side of persona
 ![Screenshot 2025-12-29 162556](https://github.com/user-attachments/assets/381292a7-dae7-447e-95c0-ecc16ca436f5)
 
 BOM:
-| Part | Amount | Price |
-| --- | --- | --- | 
-| Linear Actuators | 2x | ~$60 |
+| Part | Amount | Price | Link |
+| --- | --- | --- | --- |
+| Linear Actuators | 2x | ~$48 | [https://www.digikey.com/en/products/detail/dfrobot/FIT0803/14824998](https://www.digikey.com/en/products/detail/dfrobot/FIT0803/14824998) |
+| M3 Heatset Insert | 26x | $5.95 | [https://www.adafruit.com/product/4256?gad_source=1&gad_campaignid=21079227318&gbraid=0AAAAADx9JvQqarUxNuCSIE1qDs0R13337&gclid=Cj0KCQjw_vnQBhCxARIsADcZyxJQlT_iRvEh3xS3mAPNyFk3gSaS8bFPCvhvamXXNOqIlSAQFgW5hyYaAnWJEALw_wcB](https://www.adafruit.com/product/4256?gad_source=1&gad_campaignid=21079227318&gbraid=0AAAAADx9JvQqarUxNuCSIE1qDs0R13337&gclid=Cj0KCQjw_vnQBhCxARIsADcZyxJQlT_iRvEh3xS3mAPNyFk3gSaS8bFPCvhvamXXNOqIlSAQFgW5hyYaAnWJEALw_wcB) |
 
-Everything else I already have at home!
+
