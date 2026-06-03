@@ -10,6 +10,9 @@ This is compatible specifically with the Yamaha Allegro Trombone with F Attachme
 
 ![Screenshot 2025-12-29 162556](https://github.com/user-attachments/assets/381292a7-dae7-447e-95c0-ecc16ca436f5)
 
+Wiring Diagram:
+<img width="1307" height="742" alt="Screenshot 2026-06-02 212322" src="https://github.com/user-attachments/assets/d9cecfe3-420c-4c3a-b102-5b467d1e8e16" />
+
 BOM (commercial products):
 | Part | Amount | Price | Link |
 | --- | --- | --- | --- |
